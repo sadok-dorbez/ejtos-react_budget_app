@@ -23,14 +23,64 @@ const ExpenseItem = (props) => {
             payload: expense
         });
 
-    }
+    };
+
+    const decreaseAllocation = (name) => {
+        const expense = {
+            name: name,
+            cost: -10,
+        };
+
+        dispatch({
+            type: 'ADD_EXPENSE',
+            payload: expense
+        });
+
+    };
+
+    const circleStyle = {
+        width: '80px',
+        height: '80px',
+        borderRadius: '50%',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        position: 'relative',
+        backgroundColor: 'green',
+    };
+
+    const plusStyle = {
+        position: 'absolute',
+        color: 'white',
+        fontSize: '60px',
+    };
+
+    const redCircleStyle = {
+        ...circleStyle,
+        backgroundColor: 'red',
+    };
+
+    const minusStyle = {
+        position: 'absolute',
+        color: 'white',
+        fontSize: '40px',
+    };
 
     return (
         <tr>
-        <td>{props.name}</td>
-        <td>£{props.cost}</td>
-        <td><button onClick={event=> increaseAllocation(props.name)}>+</button></td>
-        <td><TiDelete size='1.5em' onClick={handleDeleteExpense}></TiDelete></td>
+            <td>{props.name}</td>
+            <td>£{props.cost}</td>
+            <td>
+                <div style={circleStyle} onClick={(event) => increaseAllocation(props.name)}>
+                    <span style={plusStyle}>+</span>
+                </div>
+            </td>
+            <td>
+                <div style={redCircleStyle} onClick={(event) => decreaseAllocation(props.name)}>
+                    <span style={minusStyle}>-</span>
+                </div>
+            </td>
+            <td><TiDelete size='1.5em' onClick={handleDeleteExpense}></TiDelete></td>
         </tr>
     );
 };
